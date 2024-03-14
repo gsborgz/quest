@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Shop from './shop/page';
 
 export default function Home() {
   return (
