@@ -1,4 +1,9 @@
 import type { Config } from 'jest';
+import nextJest from 'next/jest';
+
+const createJestConfig = nextJest({
+  dir: './',
+})
 
 const config: Config = {
   verbose: true,
@@ -14,4 +19,4 @@ const config: Config = {
   testMatch: ['<rootDir>/src/app/**/*.spec.ts']
 }
 
-export default config;
+export default createJestConfig(config)
