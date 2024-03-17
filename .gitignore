@@ -3,5 +3,3 @@ node_modules
 .swc
 
 next-env.d.ts
-
-.env
