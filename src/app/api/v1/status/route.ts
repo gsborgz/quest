@@ -1,4 +1,4 @@
-import database from '@/core/database';
+import database from 'core/database';
 
 export async function GET() {
   const result = await database.query('SELECT 1 + 1;');
