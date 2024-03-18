@@ -1,9 +1,25 @@
-import database from 'core/database';
+import database, { DatabaseStatus } from '@/core/database';
+
+export type AppStatus = {
+  updated_at: string;
+  dependencies: {
+    database: DatabaseStatus;
+  }
+}
 
 export async function GET() {
-  const result = await database.query('SELECT 1 + 1;');
+  const databaseStatus = await database.getServerStatus();
+  const updatedAt = new Date().toISOString();
+  const body: AppStatus = {
+    updated_at: updatedAt,
+    dependencies: {
+      database: {
+        version: databaseStatus.version,
+        max_connections: databaseStatus.max_connections,
+        opened_connections: databaseStatus.opened_connections
+      }
+    }
+  };
 
-  console.log(result);
-
-  return Response.json({ message: 'apenas um teste' })
+  return Response.json(body)
 }
