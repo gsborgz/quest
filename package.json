@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "author": "Gabriel da Silva Borges",
+  "license": "MIT",
   "scripts": {
     "dev": "npm run services:up && next dev",
     "services:up": "docker compose up -d",
@@ -17,8 +19,6 @@
     "test:back": "jest --config ./jest-back.config.ts",
     "test:back:w": "jest --config ./jest-back.config.ts --watchAll"
   },
-  "author": "Gabriel da Silva Borges",
-  "license": "MIT",
   "dependencies": {
     "next": "^14.1.3",
     "pg": "^8.11.3",
