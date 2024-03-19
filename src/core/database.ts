@@ -1,4 +1,4 @@
-import { Client } from 'pg';
+import { Client, ClientConfig } from 'pg';
 
 type Database = {
   getServerStatus(): Promise<DatabaseStatus>;
@@ -9,12 +9,13 @@ type Database = {
   delete: () => Promise<any>;
 }
 
-const databaseConfig = {
+const databaseConfig: ClientConfig = {
   host: process.env.POSTGRES_HOST,
   port: Number(process.env.POSTGRES_PORT),
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB
+  database: process.env.POSTGRES_DB,
+  ssl: process.env.NODE_ENV === 'development' ? false : true
 };
 
 export type DatabaseStatus = {
