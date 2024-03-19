@@ -46,6 +46,7 @@ const database: Database = {
       return body;
     } catch (error) {
       console.error(error);
+      throw error;
     } finally {
       await client.end();
     }
