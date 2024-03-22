@@ -1,27 +1,13 @@
-import migrationRunner, { RunnerOption } from 'node-pg-migrate';
-import { join } from 'node:path';
-
-const migrationRunnerOptions: RunnerOption = {
-  databaseUrl: process.env.DATABASE_URL,
-  dir: join('infra', 'migrations'),
-  migrationsTable: 'pgmigrations',
-  direction: 'up'
-};
+import { pgDatabase } from '@/core/pg-database';
 
 export async function GET() {
-  const migrations = await migrationRunner({
-    ...migrationRunnerOptions,
-    dryRun: true
-  });
+  const migrations = await pgDatabase.dryRunMigrations();
 
-  return Response.json(migrations)
+  return Response.json(migrations);
 }
 
 export async function POST() {
-  const migrations = await migrationRunner({
-    ...migrationRunnerOptions,
-    dryRun: false
-  });
+  const migrations = await pgDatabase.runMigrations();
 
   return Response.json(migrations)
 }
