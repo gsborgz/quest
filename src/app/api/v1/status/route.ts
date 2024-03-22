@@ -1,14 +1,14 @@
-import database, { DatabaseStatus } from 'infra/database';
+import { PgDatabaseStatus, pgDatabase } from '@/core/pg-database';
 
 export type AppStatus = {
   updated_at: string;
   dependencies: {
-    database: DatabaseStatus;
+    database: PgDatabaseStatus;
   }
 }
 
 export async function GET() {
-  const databaseStatus = await database.getServerStatus();
+  const databaseStatus = await pgDatabase.getServerStatus();
   const updatedAt = new Date().toISOString();
   const body: AppStatus = {
     updated_at: updatedAt,
