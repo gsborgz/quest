@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "npm run services:up && next dev",
-    "services:up": "docker compose up -d",
-    "services:stop": "docker compose stop",
-    "services:down": "docker compose down",
+    "services:up": "docker compose -f infra/compose.yaml up -d",
+    "services:stop": "docker compose -f infra/compose.yaml stop",
+    "services:down": "docker compose -f infra/compose.yaml down",
     "build": "next build",
     "start": "next start",
     "lint:check": "prettier --check .",
@@ -18,7 +18,7 @@
     "frontend:test:w": "jest --config ./jest-front.config.ts --watchAll",
     "backend:test": "jest --config ./jest-back.config.ts",
     "backend:test:w": "jest --config ./jest-back.config.ts --watchAll",
-    "migration:create": "node-pg-migrate -j ts -m src/core/migrations create"
+    "migration:create": "node-pg-migrate -j ts -m infra/migrations create"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

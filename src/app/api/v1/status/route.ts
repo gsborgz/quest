@@ -1,4 +1,4 @@
-import database, { DatabaseStatus } from '@/core/database';
+import database, { DatabaseStatus } from 'infra/database';
 
 export type AppStatus = {
   updated_at: string;
