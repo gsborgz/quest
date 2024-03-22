@@ -18,8 +18,7 @@
     "test:front:w": "jest --config ./jest-front.config.ts --watchAll",
     "test:back": "jest --config ./jest-back.config.ts",
     "test:back:w": "jest --config ./jest-back.config.ts --watchAll",
-    "migration:create": "node-pg-migrate -m src/core/migrations create",
-    "migration:up": "node-pg-migrate -m src/core/migrations --envPath .env.development up"
+    "migration:create": "node-pg-migrate -j ts -m src/core/migrations create"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
