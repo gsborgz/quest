@@ -14,10 +14,10 @@
     "start": "next start",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test:front": "jest --config ./jest-front.config.ts",
-    "test:front:w": "jest --config ./jest-front.config.ts --watchAll",
-    "test:back": "jest --config ./jest-back.config.ts",
-    "test:back:w": "jest --config ./jest-back.config.ts --watchAll",
+    "frontend:test": "jest --config ./jest-front.config.ts",
+    "frontend:test:w": "jest --config ./jest-front.config.ts --watchAll",
+    "backend:test": "jest --config ./jest-back.config.ts",
+    "backend:test:w": "jest --config ./jest-back.config.ts --watchAll",
     "migration:create": "node-pg-migrate -j ts -m src/core/migrations create"
   },
   "dependencies": {
