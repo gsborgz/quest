@@ -17,7 +17,8 @@
     "frontend:test": "jest --config ./jest-front.config.ts",
     "frontend:test:w": "jest --config ./jest-front.config.ts --watchAll",
     "backend:test": "jest --config ./jest-back.config.ts",
-    "backend:test:w": "jest --config ./jest-back.config.ts --watchAll"
+    "backend:test:w": "jest --config ./jest-back.config.ts --watchAll",
+    "migration:c": "typeorm migration:create ./src/core/migrations/migration_name"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
