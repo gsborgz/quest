@@ -11,6 +11,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
   testMatch: ['<rootDir>/src/app/**/*.spec.tsx']
 }
 

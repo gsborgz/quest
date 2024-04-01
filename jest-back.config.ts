@@ -13,9 +13,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
-  globals: {
-    fetch: global.fetch,
-  },
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
   testMatch: ['<rootDir>/src/app/**/*.spec.ts']
 }
 
