@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { Sql } from '@prisma/client/runtime/library';
 import { Pool } from 'pg';
 
@@ -22,9 +22,9 @@ class PgDatabase {
     try {
       await this.client.$connect();
 
-      const serverVersionResult = await this.client.$queryRaw`SHOW server_version`;
-      const serverMaxConnectionsResult = await this.client.$queryRaw`SHOW max_connections`;
-      const serverOpenedConnectionsResult = await this.client.$queryRaw`SELECT count(*)::int from pg_stat_activity WHERE datname = ${process.env.POSTGRES_DB}`;
+      const serverVersionResult = await this.client.$queryRaw(Prisma.sql`SHOW server_version`);
+      const serverMaxConnectionsResult = await this.client.$queryRaw(Prisma.sql`SHOW max_connections`);
+      const serverOpenedConnectionsResult = await this.client.$queryRaw(Prisma.sql`SELECT count(*)::int from pg_stat_activity WHERE datname = ${process.env.POSTGRES_DB}`);
       const body: PgDatabaseStatus = {
         version: serverVersionResult[0].server_version,
         max_connections: Number(serverMaxConnectionsResult[0].max_connections),
