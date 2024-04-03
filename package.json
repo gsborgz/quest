@@ -11,7 +11,7 @@
     "services:up": "docker compose up -d",
     "services:stop": "docker compose stop",
     "services:down": "docker compose down",
-    "build": "npx prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
