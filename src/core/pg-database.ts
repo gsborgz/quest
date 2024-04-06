@@ -1,6 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';
-import { Sql } from '@prisma/client/runtime/library';
 import { Pool } from 'pg';
 
 export type PgDatabaseStatus = {
@@ -16,12 +15,16 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool);
 
 class PgDatabase {
-  private readonly client = new PrismaClient({ adapter });
+  private readonly pgClient = new PrismaClient({ adapter });
 
-  async getServerStatus(): Promise<PgDatabaseStatus> {
-    const serverVersionResult = await this.client.$queryRaw`SHOW server_version`;
-    const serverMaxConnectionsResult = await this.client.$queryRaw`SHOW max_connections`;
-    const serverOpenedConnectionsResult = await this.client.$queryRaw`SELECT count(*)::int from pg_stat_activity WHERE datname = ${process.env.POSTGRES_DB}`;
+  public get client() {
+    return this.pgClient;
+  }
+
+  public async getServerStatus(): Promise<PgDatabaseStatus> {
+    const serverVersionResult = await this.pgClient.$queryRaw`SHOW server_version`;
+    const serverMaxConnectionsResult = await this.pgClient.$queryRaw`SHOW max_connections`;
+    const serverOpenedConnectionsResult = await this.pgClient.$queryRaw`SELECT count(*)::int from pg_stat_activity WHERE datname = ${process.env.POSTGRES_DB}`;
     const body: PgDatabaseStatus = {
       version: serverVersionResult[0].server_version,
       max_connections: Number(serverMaxConnectionsResult[0].max_connections),
@@ -29,63 +32,6 @@ class PgDatabase {
     };
 
     return body;
-  }
-
-  async query(query: Sql) {
-    try {
-      await this.client.$connect();
-
-      return this.client.$queryRaw(query);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await this.client.$disconnect();
-    }
-  }
-
-  async findOne<T>() {
-    try {
-      await this.client.$connect();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await this.client.$disconnect();
-    }
-  }
-
-  async findAll<T>() {
-    try {
-      await this.client.$connect();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await this.client.$disconnect();
-    }
-  }
-
-  async save<T>() {
-    try {
-      await this.client.$connect();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await this.client.$disconnect();
-    }
-  }
-
-  async delete(): Promise<any> {
-    try {
-      await this.client.$connect();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    } finally {
-      await this.client.$disconnect();
-    }
   }
 }
 
